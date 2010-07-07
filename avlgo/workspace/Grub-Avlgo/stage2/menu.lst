@@ -1,0 +1,12 @@
+# ==========================================
+# Avlgo - dos env inside
+# (r) Sysoft Space (http://sysoft.zdwx.com/)
+#     Hnlyzhd & Gandalf
+# 2006-2-24 15:16
+# ==========================================
+default 0
+timeout 0
+
+title Avlgo - Freedos
+kernel (rd)/memdisk.gz
+initrd (rd)/sysoft.gz

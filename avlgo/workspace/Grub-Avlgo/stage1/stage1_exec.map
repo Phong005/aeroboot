@@ -1,0 +1,276 @@
+
+stage1.ld:     file format coff-go32-exe
+
+Disassembly of section .text:
+
+00007c00 <_start>:
+    7c00:	eb 48                	jmp    7c4a <after_BPB>
+    7c02:	90                   	nop    
+	...
+
+00007c04 <mode>:
+	...
+
+00007c05 <disk_address_packet>:
+    7c05:	00 00                	add    %al,(%eax)
+	...
+
+00007c09 <heads>:
+    7c09:	00 00                	add    %al,(%eax)
+	...
+
+00007c0d <cylinders>:
+	...
+
+00007c0f <sector_start>:
+	...
+
+00007c10 <head_start>:
+	...
+
+00007c11 <cylinder_start>:
+	...
+
+00007c3e <stage1_version>:
+    7c3e:	03 02                	add    (%edx),%eax
+
+00007c40 <boot_drive>:
+    7c40:	ff 00                	incl   (%eax)
+
+00007c41 <force_lba>:
+	...
+
+00007c42 <stage2_address>:
+    7c42:	00 80 01 00 00 00    	add    %al,0x1(%eax)
+
+00007c44 <stage2_sector>:
+    7c44:	01 00                	add    %eax,(%eax)
+	...
+
+00007c48 <stage2_segment>:
+    7c48:	00 08                	add    %cl,(%eax)
+
+00007c4a <after_BPB>:
+    7c4a:	fa                   	cli    
+
+00007c4b <boot_drive_check>:
+    7c4b:	eb 07                	jmp    7c54 <boot_drive_check+0x9>
+    7c4d:	f6 c2 80             	test   $0x80,%dl
+    7c50:	75 02                	jne    7c54 <boot_drive_check+0x9>
+    7c52:	b2 80                	mov    $0x80,%dl
+    7c54:	ea 59 7c 00 00 31 c0 	ljmp   $0xc031,$0x7c59
+
+00007c59 <real_start>:
+    7c59:	31 c0                	xor    %eax,%eax
+    7c5b:	8e d8                	mov    %eax,%ds
+    7c5d:	8e d0                	mov    %eax,%ss
+    7c5f:	bc 00 20 fb a0       	mov    $0xa0fb2000,%esp
+    7c64:	40                   	inc    %eax
+    7c65:	7c 3c                	jl     7ca3 <lba_mode+0xe>
+    7c67:	ff 74 02 88          	pushl  0xffffff88(%edx,%eax,1)
+    7c6b:	c2 52 be             	ret    $0xbe52
+    7c6e:	7f 7d                	jg     7ced <final_init+0x11>
+    7c70:	e8 34 01 f6 c2       	call   c2f67da9 <end+0xc2f5fda9>
+    7c75:	80 74 54 b4 41       	xorb   $0x41,0xffffffb4(%esp,%edx,2)
+    7c7a:	bb aa 55 cd 13       	mov    $0x13cd55aa,%ebx
+    7c7f:	5a                   	pop    %edx
+    7c80:	52                   	push   %edx
+    7c81:	72 49                	jb     7ccc <chs_mode>
+    7c83:	81 fb 55 aa 75 43    	cmp    $0x4375aa55,%ebx
+    7c89:	a0 41 7c 84 c0       	mov    0xc0847c41,%al
+    7c8e:	75 05                	jne    7c95 <lba_mode>
+    7c90:	83 e1 01             	and    $0x1,%ecx
+    7c93:	74 37                	je     7ccc <chs_mode>
+
+00007c95 <lba_mode>:
+    7c95:	66 8b 4c 10 be       	mov    0xffffffbe(%eax,%edx,1),%cx
+    7c9a:	05 7c c6 44 ff       	add    $0xff44c67c,%eax
+    7c9f:	01 66 8b             	add    %esp,0xffffff8b(%esi)
+    7ca2:	1e                   	push   %ds
+    7ca3:	44                   	inc    %esp
+    7ca4:	7c c7                	jl     7c6d <real_start+0x14>
+    7ca6:	04 10                	add    $0x10,%al
+    7ca8:	00 c7                	add    %al,%bh
+    7caa:	44                   	inc    %esp
+    7cab:	02 01                	add    (%ecx),%al
+    7cad:	00 66 89             	add    %ah,0xffffff89(%esi)
+    7cb0:	5c                   	pop    %esp
+    7cb1:	08 c7                	or     %al,%bh
+    7cb3:	44                   	inc    %esp
+    7cb4:	06                   	push   %es
+    7cb5:	00 70 66             	add    %dh,0x66(%eax)
+    7cb8:	31 c0                	xor    %eax,%eax
+    7cba:	89 44 04 66          	mov    %eax,0x66(%esp,%eax,1)
+    7cbe:	89 44 0c b4          	mov    %eax,0xffffffb4(%esp,%ecx,1)
+    7cc2:	42                   	inc    %edx
+    7cc3:	cd 13                	int    $0x13
+    7cc5:	72 05                	jb     7ccc <chs_mode>
+    7cc7:	bb 00 70 eb 7d       	mov    $0x7deb7000,%ebx
+
+00007ccc <chs_mode>:
+    7ccc:	b4 08                	mov    $0x8,%ah
+    7cce:	cd 13                	int    $0x13
+    7cd0:	73 0a                	jae    7cdc <final_init>
+    7cd2:	f6 c2 80             	test   $0x80,%dl
+    7cd5:	0f 84 ea 00 e9 8d    	je     8de97dc5 <end+0x8de8fdc5>
+	...
+
+00007cdc <final_init>:
+    7cdc:	be 05 7c c6 44       	mov    $0x44c67c05,%esi
+    7ce1:	ff 00                	incl   (%eax)
+    7ce3:	66 31 c0             	xor    %ax,%ax
+    7ce6:	88 f0                	mov    %dh,%al
+    7ce8:	40                   	inc    %eax
+    7ce9:	66 89 44 04 31       	mov    %ax,0x31(%esp,%eax,1)
+    7cee:	d2 88 ca c1 e2 02    	rorb   %cl,0x2e2c1ca(%eax)
+    7cf4:	88 e8                	mov    %ch,%al
+    7cf6:	88 f4                	mov    %dh,%ah
+    7cf8:	40                   	inc    %eax
+    7cf9:	89 44 08 31          	mov    %eax,0x31(%eax,%ecx,1)
+    7cfd:	c0 88 d0 c0 e8 02 66 	rorb   $0x66,0x2e8c0d0(%eax)
+    7d04:	89 04 66             	mov    %eax,(%esi,2)
+
+00007d06 <setup_sectors>:
+    7d06:	66 a1 44 7c 66 31    	mov    0x31667c44,%ax
+    7d0c:	d2 66 f7             	shlb   %cl,0xfffffff7(%esi)
+    7d0f:	34 88                	xor    $0x88,%al
+    7d11:	54                   	push   %esp
+    7d12:	0a 66 31             	or     0x31(%esi),%ah
+    7d15:	d2 66 f7             	shlb   %cl,0xfffffff7(%esi)
+    7d18:	74 04                	je     7d1e <setup_sectors+0x18>
+    7d1a:	88 54 0b 89          	mov    %dl,0xffffff89(%ebx,%ecx,1)
+    7d1e:	44                   	inc    %esp
+    7d1f:	0c 3b                	or     $0x3b,%al
+    7d21:	44                   	inc    %esp
+    7d22:	08 7d 3c             	or     %bh,0x3c(%ebp)
+    7d25:	8a 54 0d c0          	mov    0xffffffc0(%ebp,%ecx,1),%dl
+    7d29:	e2 06                	loop   7d31 <setup_sectors+0x2b>
+    7d2b:	8a 4c 0a fe          	mov    0xfffffffe(%edx,%ecx,1),%cl
+    7d2f:	c1 08 d1             	rorl   $0xd1,(%eax)
+    7d32:	8a 6c 0c 5a          	mov    0x5a(%esp,%ecx,1),%ch
+    7d36:	8a 74 0b bb          	mov    0xffffffbb(%ebx,%ecx,1),%dh
+    7d3a:	00 70 8e             	add    %dh,0xffffff8e(%eax)
+    7d3d:	c3                   	ret    
+    7d3e:	31 db                	xor    %ebx,%ebx
+    7d40:	b8 01 02 cd 13       	mov    $0x13cd0201,%eax
+    7d45:	72 2a                	jb     7d71 <read_error>
+    7d47:	8c c3                	mov    %es,%ebx
+
+00007d49 <copy_buffer>:
+    7d49:	8e 06                	movl   (%esi),%es
+    7d4b:	48                   	dec    %eax
+    7d4c:	7c 60                	jl     7dae <message+0x7>
+    7d4e:	1e                   	push   %ds
+    7d4f:	b9 00 01 8e db       	mov    $0xdb8e0100,%ecx
+    7d54:	31 f6                	xor    %esi,%esi
+    7d56:	31 ff                	xor    %edi,%edi
+    7d58:	fc                   	cld    
+    7d59:	f3 a5                	repz movsl %ds:(%esi),%es:(%edi)
+    7d5b:	1f                   	pop    %ds
+    7d5c:	61                   	popa   
+    7d5d:	ff 26                	jmp    *(%esi)
+    7d5f:	42                   	inc    %edx
+    7d60:	7c be                	jl     7d20 <setup_sectors+0x1a>
+
+00007d61 <geometry_error>:
+    7d61:	be 85 7d e8 40       	mov    $0x40e87d85,%esi
+    7d66:	00 eb                	add    %ch,%bl
+    7d68:	0e                   	push   %cs
+
+00007d69 <hd_probe_error>:
+    7d69:	be 8a 7d e8 38       	mov    $0x38e87d8a,%esi
+    7d6e:	00 eb                	add    %ch,%bl
+    7d70:	06                   	push   %es
+
+00007d71 <read_error>:
+    7d71:	be 94 7d e8 30       	mov    $0x30e87d94,%esi
+	...
+
+00007d77 <general_error>:
+    7d77:	be 99 7d e8 2a       	mov    $0x2ae87d99,%esi
+	...
+
+00007d7d <stop>:
+    7d7d:	eb fe                	jmp    7d7d <stop>
+
+00007d7f <notification_string>:
+    7d7f:	47                   	inc    %edi
+    7d80:	52                   	push   %edx
+    7d81:	55                   	push   %ebp
+    7d82:	42                   	inc    %edx
+    7d83:	20 00                	and    %al,(%eax)
+
+00007d85 <geometry_error_string>:
+    7d85:	47                   	inc    %edi
+    7d86:	65 6f                	outsl  %gs:(%esi),(%dx)
+    7d88:	6d                   	insl   (%dx),%es:(%edi)
+	...
+
+00007d8a <hd_probe_error_string>:
+    7d8a:	48                   	dec    %eax
+    7d8b:	61                   	popa   
+    7d8c:	72 64                	jb     7df2 <fd_probe_error_string+0x18>
+    7d8e:	20 44 69 73          	and    %al,0x73(%ecx,%ebp,2)
+    7d92:	6b 00 52             	imul   $0x52,(%eax),%eax
+
+00007d94 <read_error_string>:
+    7d94:	52                   	push   %edx
+    7d95:	65                   	gs
+    7d96:	61                   	popa   
+    7d97:	64 00 20             	add    %ah,%fs:(%eax)
+
+00007d99 <general_error_string>:
+    7d99:	20 45 72             	and    %al,0x72(%ebp)
+    7d9c:	72 6f                	jb     7e0d <edata+0x9>
+    7d9e:	72 00                	jb     7da0 <general_error_string+0x7>
+    7da0:	bb 01 00 b4 0e       	mov    $0xeb40001,%ebx
+    7da5:	cd 10                	int    $0x10
+
+00007da7 <message>:
+    7da7:	ac                   	lods   %ds:(%esi),%al
+    7da8:	3c 00                	cmp    $0x0,%al
+    7daa:	75 f4                	jne    7da0 <general_error_string+0x7>
+    7dac:	c3                   	ret    
+	...
+
+00007db8 <nt_magic>:
+    7db8:	00 00                	add    %al,(%eax)
+    7dba:	00 00                	add    %al,(%eax)
+	...
+
+00007dbe <part_start>:
+    7dbe:	24 12                	and    $0x12,%al
+    7dc0:	0f 09                	wbinvd 
+	...
+
+00007dc3 <floppy_probe>:
+    7dc3:	be bd 7d 31 c0       	mov    $0xc0317dbd,%esi
+
+00007dc6 <probe_loop>:
+    7dc6:	31 c0                	xor    %eax,%eax
+    7dc8:	cd 13                	int    $0x13
+    7dca:	46                   	inc    %esi
+    7dcb:	8a 0c 80             	mov    (%eax,%eax,4),%cl
+    7dce:	f9                   	stc    
+    7dcf:	00 75 0f             	add    %dh,0xf(%ebp)
+    7dd2:	be da 7d e8 cf       	mov    $0xcfe87dda,%esi
+    7dd7:	ff eb                	ljmp   *%ebx
+    7dd9:	9d                   	popf   
+
+00007dda <fd_probe_error_string>:
+    7dda:	46                   	inc    %esi
+    7ddb:	6c                   	insb   (%dx),%es:(%edi)
+    7ddc:	6f                   	outsl  %ds:(%esi),(%dx)
+    7ddd:	70 70                	jo     7e4f <edata+0x4b>
+    7ddf:	79 00                	jns    7de1 <fd_probe_error_string+0x7>
+    7de1:	bb 00 70 b8 01       	mov    $0x1b87000,%ebx
+    7de6:	02 b5 00 b6 00 cd    	add    0xcd00b600(%ebp),%dh
+    7dec:	13 72 d7             	adc    0xffffffd7(%edx),%esi
+    7def:	b6 01                	mov    $0x1,%dh
+    7df1:	b5 4f                	mov    $0x4f,%ch
+    7df3:	e9 e6 fe 00 00       	jmp    17cde <end+0xfcde>
+    7df8:	00 00                	add    %al,(%eax)
+    7dfa:	00 00                	add    %al,(%eax)
+    7dfc:	00 00                	add    %al,(%eax)
+    7dfe:	55                   	push   %ebp
+    7dff:	aa                   	stos   %al,%es:(%edi)
