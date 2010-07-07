@@ -1,0 +1,207 @@
+;
+; Copyright (c) Microsoft Corporation.  All rights reserved.
+;
+;
+; Use of this source code is subject to the terms of the Microsoft end-user
+; license agreement (EULA) under which you licensed this SOFTWARE PRODUCT.
+; If you did not accept the terms of the EULA, you are not authorized to use
+; this source code. For a copy of the EULA, please see the LICENSE.RTF on your
+; install media.
+;
+
+MODULES
+
+;   Name            		Path                                    Memory Type
+;   --------------  		----------------------------------		-----------
+
+; -----------------------------------------------------------------------------
+; GWES drivers
+;
+; @CESYSGEN IF CE_MODULES_DISPLAY
+IF BSP_NODISPLAY !
+    DeviceEmulator_lcd.dll        $(_FLATRELEASEDIR)\DeviceEmulator_lcd.dll          NK  SH
+ENDIF BSP_NODISPLAY !
+; @CESYSGEN ENDIF CE_MODULES_DISPLAY
+
+; @CESYSGEN IF CE_MODULES_KEYBD || CE_MODULES_POINTER
+#if ! (defined BSP_NOKEYBD && defined BSP_NOMOUSE)
+IF LOCALE=0411 !
+IF LOCALE=0412 !
+IF BSP_KEYBD_NOP
+; @CESYSGEN IF CE_MODULES_NOPKEYBOARD
+    kbdmouse.dll		    $(_FLATRELEASEDIR)\KbdNopUs.dll			     NK  SH
+; @CESYSGEN ENDIF CE_MODULES_NOPKEYBOARD
+ENDIF	; BSP_KEYBD_NOP
+IF BSP_KEYBD_NOP !
+    kbdmouse.dll		    $(_FLATRELEASEDIR)\KbdS3C2410Us.dll		     NK  SH
+ENDIF	; BSP_KEYBD_NOP
+ENDIF	; LOCALE != 0412
+ENDIF	; LOCALE != 0411
+IF LOCALE=0411
+IF BSP_KEYBD_JPN1
+IF BSP_KEYBD_NOP
+; @CESYSGEN IF CE_MODULES_NOPKEYBOARD
+    kbdmouse.dll		    $(_FLATRELEASEDIR)\KbdNopJpn1.dll		     NK  SH
+; @CESYSGEN ENDIF CE_MODULES_NOPKEYBOARD
+ENDIF	; BSP_KEYBD_NOP
+IF BSP_KEYBD_NOP !
+    kbdmouse.dll		    $(_FLATRELEASEDIR)\KbdS3C2410Jpn1.dll		 NK  SH
+ENDIF	; BSP_KEYBD_NOP
+ENDIF	; BSP_KEYBD_JPN1
+IF BSP_KEYBD_JPN1 !
+IF BSP_KEYBD_NOP
+; @CESYSGEN IF CE_MODULES_NOPKEYBOARD
+    kbdmouse.dll		    $(_FLATRELEASEDIR)\KbdNopJpn2.dll		     NK  SH
+; @CESYSGEN ENDIF CE_MODULES_NOPKEYBOARD
+ENDIF	; BSP_KEYBD_NOP
+IF BSP_KEYBD_NOP !
+    kbdmouse.dll		    $(_FLATRELEASEDIR)\KbdS3C2410Jpn2.dll		 NK  SH
+ENDIF	; BSP_KEYBD_NOP
+ENDIF	; BSP_KEYBD_JPN1
+ENDIF	; LOCALE == 0411
+IF LOCALE=0412
+IF BSP_KEYBD_NOP
+; @CESYSGEN IF CE_MODULES_NOPKEYBOARD
+    kbdmouse.dll		    $(_FLATRELEASEDIR)\KbdNopKor.dll		     NK  SH
+; @CESYSGEN ENDIF CE_MODULES_NOPKEYBOARD
+ENDIF	; BSP_KEYBD_NOP
+IF BSP_KEYBD_NOP !
+    kbdmouse.dll		    $(_FLATRELEASEDIR)\KbdS3C2410Kor.dll		 NK  SH
+ENDIF	; BSP_KEYBD_NOP
+ENDIF	; LOCALE == 0412
+#endif ; ! (defined BSP_NOKEYBD && defined BSP_NOMOUSE)
+; @CESYSGEN ENDIF CE_MODULES_KEYBD || CE_MODULES_POINTER
+
+; @CESYSGEN IF CE_MODULES_POINTER
+IF BSP_NOTOUCH !
+    touch.dll      $(_FLATRELEASEDIR)\DeviceEmulator_touch.dll                 NK  SH
+ENDIF BSP_NOTOUCH !
+; @CESYSGEN ENDIF CE_MODULES_POINTER
+
+; @CESYSGEN IF CE_MODULES_SDBUS
+IF BSP_SDHC_SC2410
+   sdhc_sc2410.dll    $(_FLATRELEASEDIR)\sdhc_sc2410.dll        NK  SH
+ENDIF BSP_SDHC_SC2410
+; @CESYSGEN ENDIF CE_MODULES_SDBUS
+
+; -----------------------------------------------------------------------------
+; File system drivers
+;
+
+; @CESYSGEN IF CE_MODULES_SDNPCID
+   ; This is needed in the NK region because it is needed by BINFS 
+   ; to load other regions
+   smflash.dll			$(_FLATRELEASEDIR)\smflash.dll			NK SH
+; @CESYSGEN ENDIF CE_MODULES_SDNPCID
+
+
+; -----------------------------------------------------------------------------
+; Device.exe drivers
+;
+; @CESYSGEN IF CE_MODULES_DEVICE
+; @CESYSGEN IF CE_MODULES_USBD
+IF BSP_NOUSB !
+    ohci2.dll   $(_FLATRELEASEDIR)\ohci2.dll                             NK  SH
+ENDIF BSP_NOUSB !
+; @CESYSGEN ENDIF CE_MODULES_USBD
+
+; @CESYSGEN IF CE_MODULES_USBFN
+IF BSP_NOUSBFN !
+   sc2410usbfn.dll       $(_FLATRELEASEDIR)\sc2410usbfn.dll       NK  SH
+ENDIF BSP_NOUSBFN !
+; @CESYSGEN ENDIF CE_MODULES_USBFN
+
+; @CESYSGEN IF CE_MODULES_PCCARD
+IF BSP_NOPCCARD !
+    pcc_smdk2410.dll    $(_FLATRELEASEDIR)\pcc_smdk2410.dll              NK  SH
+    pcc_serv.dll	    $(_FLATRELEASEDIR)\pcc_serv16.dll			     NK  SH
+    pcmcia.dll			$(_FLATRELEASEDIR)\pcc_pcm.dll			         NK  SH
+ENDIF BSP_NOPCCARD !
+; @CESYSGEN ENDIF CE_MODULES_PCCARD
+
+IF BSP_NOPWRBTN !
+    pwrbtn2410.dll          $(_FLATRELEASEDIR)\pwrbtn2410.dll            NK  SH
+ENDIF BSP_NOPWRBTN !
+
+; @CESYSGEN IF CE_MODULES_WAVEAPI
+IF BSP_NOAUDIO !
+    s3c2410x_wavedev.dll    $(_FLATRELEASEDIR)\s3c2410x_wavedev.dll      NK  SH
+ENDIF BSP_NOAUDIO !
+; @CESYSGEN ENDIF CE_MODULES_WAVEAPI
+
+; @CESYSGEN IF CE_MODULES_SERIAL
+IF BSP_NOSERIAL !
+    serial_smdk2410.dll     $(_FLATRELEASEDIR)\serial_smdk2410.dll       NK  SH
+IF BSP_NOPCCARD !
+; For serial PC CARD 
+    com16550.dll    $(_FLATRELEASEDIR)\com16550.dll               NK SH
+    isr16550.dll    $(_FLATRELEASEDIR)\isr16550.dll               NK  SHK
+ENDIF BSP_NOPCCARD !
+ENDIF BSP_NOSERIAL !
+; @CESYSGEN ENDIF CE_MODULES_SERIAL
+
+; @CESYSGEN IF CE_MODULES_BATTDRVR
+IF BSP_NOBATTERY !
+    battdrvr.dll            $(_FLATRELEASEDIR)\battdrvr.dll              NK  SH
+ENDIF BSP_NOBATTERY !
+; @CESYSGEN ENDIF CE_MODULES_BATTDRVR
+
+; @CESYSGEN IF CE_MODULES_NLEDDRVR
+IF BSP_NONLED !
+    nleddrvr.dll            $(_FLATRELEASEDIR)\nleddrvr.dll              NK  SH
+ENDIF   ; BSP_NONLED !
+; @CESYSGEN ENDIF CE_MODULES_NLEDDRVR
+
+; @CESYSGEN IF CE_MODULES_DEVICE
+;Emulator DMA Transport
+dmatrans.dll            $(_FLATRELEASEDIR)\dmatrans.dll         NK SH
+; @CESYSGEN ENDIF CE_MODULES_DEVICE
+
+; @CESYSGEN IF CE_MODULES_DEVICE && COREDLL_CORESTRA && COREDLL_FULL_CRT
+; @XIPREGION IF DEFAULT_DEVICEEMULATOR_BIN
+EmulatorStub.exe        $(_FLATRELEASEDIR)\EmulatorStub.exe     NK SH
+; @XIPREGION ENDIF DEFAULT_DEVICEEMULATOR_BIN
+; @CESYSGEN ENDIF ; CE_MODULES_DEVICE && COREDLL_CORESTRA && COREDLL_FULL_CRT
+
+; Serial-over-DMA
+; @CESYSGEN IF CE_MODULES_SERIAL
+serdma.dll          $(_FLATRELEASEDIR)\serdma.dll           NK  S
+; @CESYSGEN ENDIF CE_MODULES_SERIAL
+; @CESYSGEN IF CE_MODULES_PPP
+dmacnect.exe                    $(_FLATRELEASEDIR)\dmacnect.exe                 NK  S
+; @CESYSGEN ENDIF CE_MODULES_PPP
+
+; @CESYSGEN IF CE_MODULES_PPP
+; @CESYSGEN IF SHELLSDK_MODULES_AYGSHELL || SHELLW_MODULES_AYGSHELL
+SerDMAASPlugIn.dll              $(_FLATRELEASEDIR)\SerDMAASPlugIn.dll           NK  S
+; @CESYSGEN ENDIF SHELLSDK_MODULES_AYGSHELL || SHELLW_MODULES_AYGSHELL
+; @CESYSGEN ENDIF CE_MODULES_PPP
+
+; @CESYSGEN IF CE_MODULES_FSDMGR
+
+;Folder Sharing
+vcefsd.dll                      $(_FLATRELEASEDIR)\vcefsd.dll                   NK SH
+emulserv.dll                    $(_FLATRELEASEDIR)\emulserv.dll                 NK SH
+
+; @CESYSGEN ENDIF CE_MODULES_FSDMGR
+
+; @CESYSGEN ENDIF CE_MODULES_DEVICE
+
+; -----------------------------------------------------------------------------
+; Direct3D Mobile Drivers
+
+; @CESYSGEN IF DIRECTX_MODULES_D3DM
+IF BSP_D3DM_NULL
+    d3dm_nulldrv.dll        $(_FLATRELEASEDIR)\d3dm_nulldrv.dll          NK  SH
+ENDIF BSP_D3DM_NULL
+; @CESYSGEN ENDIF DIRECTX_MODULES_D3DM
+
+
+FILES
+;  Name            		Path                                        Memory Type
+;  --------------  		----------------------------------          -----------
+
+
+; @CESYSGEN IF CE_MODULES_PPP
+dmacnect.lnk    $(_FLATRELEASEDIR)\dmacnect.lnk                 NK  SH
+; @CESYSGEN ENDIF CE_MODULES_PPP

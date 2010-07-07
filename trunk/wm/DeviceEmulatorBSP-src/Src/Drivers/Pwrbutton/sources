@@ -1,0 +1,25 @@
+!if 0
+Copyright (c) Microsoft Corporation.  All rights reserved.
+!endif
+!if 0
+Use of this source code is subject to the terms of the Microsoft end-user
+license agreement (EULA) under which you licensed this SOFTWARE PRODUCT.
+If you did not accept the terms of the EULA, you are not authorized to use
+this source code. For a copy of the EULA, please see the LICENSE.RTF on your
+install media.
+!endif
+
+TARGETNAME=pwrbtn2410
+RELEASETYPE=PLATFORM
+TARGETTYPE=DYNLINK
+
+TARGETLIBS=$(_COMMONSDKROOT)\lib\$(_CPUINDPATH)\coredll.lib	
+   
+DEFFILE=pwrbtn2410.def
+
+PREPROCESSDEFFILE=1
+
+DLLENTRY=DllEntry
+
+SOURCES=pwrbtn2410.c
+

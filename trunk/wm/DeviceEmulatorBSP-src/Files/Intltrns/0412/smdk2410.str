@@ -1,0 +1,16 @@
+//------------------------------------------------------------------------------
+//
+//  File for localizing platform-specific strings that may be presented to user.
+//
+//------------------------------------------------------------------------------
+
+
+//------------------------------------------------------------------------------
+// [HKEY_LOCAL_MACHINE\Platform]
+#define LOC_PLATFORMNAME        "Microsoft Windows CE Hardware Reference Platform"
+
+
+//------------------------------------------------------------------------------
+// [HKEY_LOCAL_MACHINE\Comm\Irsir]
+#define LOC_DISPLAYNAME_COMM_IRSIR      "Serial (COM) IrDA Driver"
+

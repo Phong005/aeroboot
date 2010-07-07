@@ -1,0 +1,34 @@
+!if 0
+Copyright (c) Microsoft Corporation.  All rights reserved.
+!endif
+!if 0
+Use of this source code is subject to the terms of the Microsoft end-user
+license agreement (EULA) under which you licensed this SOFTWARE PRODUCT.
+If you did not accept the terms of the EULA, you are not authorized to use
+this source code. For a copy of the EULA, please see the LICENSE.RTF on your
+install media.
+!endif
+DIRS=ceddk     \
+     ethernet  \
+# @CESYSGEN IF CE_MODULES_KEYBD || CE_MODULES_POINTER
+     keybd     \
+# @CESYSGEN ENDIF CE_MODULES_KEYBD || CE_MODULES_POINTER
+# @CESYSGEN IF CE_MODULES_DEVICE
+     dma       \
+     pwrbutton \
+# @CESYSGEN IF CE_MODULES_FSDMGR
+     emulserv  \
+     vcefsd    \
+# @CESYSGEN ENDIF CE_MODULES_FSDMGR
+# @CESYSGEN IF CE_MODULES_PCCARD
+     pccard   \
+# @CESYSGEN ENDIF CE_MODULES_PCCARD
+# @CESYSGEN IF CE_MODULES_SERIAL
+     serial   \
+     serdma   \
+# @CESYSGEN ENDIF CE_MODULES_SERIAL
+# @CESYSGEN ENDIF CE_MODULES_DEVICE
+# @CESYSGEN IF CE_MODULES_DISPLAY
+     display \
+     touch    \
+# @CESYSGEN ENDIF CE_MODULES_DISPLAY

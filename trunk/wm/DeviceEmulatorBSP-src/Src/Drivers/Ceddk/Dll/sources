@@ -1,0 +1,29 @@
+!if 0
+Copyright (c) Microsoft Corporation.  All rights reserved.
+!endif
+!if 0
+Use of this source code is subject to the terms of the Microsoft end-user
+license agreement (EULA) under which you licensed this SOFTWARE PRODUCT.
+If you did not accept the terms of the EULA, you are not authorized to use
+this source code. For a copy of the EULA, please see the LICENSE.RTF on your
+install media.
+!endif
+TARGETNAME=ceddk
+TARGETTYPE=DYNLINK
+RELEASETYPE=PLATFORM
+WINCEOEM=1
+
+DEFFILE=$(_COMMONOAKROOT)\inc\ceddk.def
+
+SOURCES= \
+    ceddk.c
+
+SOURCELIBS= \
+    $(_TARGETPLATROOT)\lib\$(_CPUINDPATH)\ddk_bus.lib \
+    $(_COMMONOAKROOT)\lib\$(_CPUINDPATH)\ddk_bus.lib  \
+    $(_COMMONOAKROOT)\lib\$(_CPUINDPATH)\ddk_io.lib  \
+    $(_COMMONOAKROOT)\lib\$(_CPUINDPATH)\ddk_dma.lib  \
+    $(_COMMONOAKROOT)\lib\$(_CPUINDPATH)\ddk_map.lib \
+    $(_COMMONOAKROOT)\lib\$(_CPUINDPATH)\ddk_time.lib \
+    $(_COMMONOAKROOT)\lib\$(_CPUINDPATH)\ddk_power.lib \
+    $(_COMMONSDKROOT)\lib\$(_CPUINDPATH)\coredll.lib

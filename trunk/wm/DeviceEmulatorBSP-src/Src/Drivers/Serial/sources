@@ -1,0 +1,30 @@
+!if 0
+Copyright (c) Microsoft Corporation.  All rights reserved.
+!endif
+!if 0
+Use of this source code is subject to the terms of the Microsoft end-user
+license agreement (EULA) under which you licensed this SOFTWARE PRODUCT.
+If you did not accept the terms of the EULA, you are not authorized to use
+this source code. For a copy of the EULA, please see the LICENSE.RTF on your
+install media.
+!endif
+
+WINCEOEM=1
+
+TARGETNAME=serial_smdk2410
+TARGETTYPE=DYNLINK
+RELEASETYPE=PLATFORM
+TARGETLIBS=$(_COMMONSDKROOT)\lib\$(_CPUINDPATH)\coredll.lib \
+           $(_SYSGENOAKROOT)\lib\$(_CPUINDPATH)\ceddk.lib
+
+SOURCELIBS=$(_SYSGENOAKROOT)\lib\$(_CPUINDPATH)\s3c2410x_serial.lib \
+           $(_SYSGENOAKROOT)\lib\$(_CPUINDPATH)\serpddcm.lib \
+           $(_SYSGENOAKROOT)\lib\$(_CPUINDPATH)\com_mdd2.lib
+
+DEFFILE=serial.def
+DLLENTRY=DllEntry
+
+SOURCES= ser_smdk2410.cpp
+
+#xref VIGUID {549CAC8D_8AF0_4789_9ACF_2BB92599470D}
+#xref VSGUID {0601CE65_BF4D_453A_966B_E20250AD2E8E}
