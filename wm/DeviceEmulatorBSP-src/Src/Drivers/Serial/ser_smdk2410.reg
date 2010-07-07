@@ -1,0 +1,35 @@
+;
+; Copyright (c) Microsoft Corporation.  All rights reserved.
+;
+;
+; Use of this source code is subject to the terms of the Microsoft end-user
+; license agreement (EULA) under which you licensed this SOFTWARE PRODUCT.
+; If you did not accept the terms of the EULA, you are not authorized to use
+; this source code. For a copy of the EULA, please see the LICENSE.RTF on your
+; install media.
+;
+
+; This file is to be included in platform.reg if required.
+;
+; $(PCI_BUS_ROOT) is a variable that needs to be set in the including 
+; platform.reg. It's value will be something like 
+; HKEY_LOCAL_MACHINE\Drivers\BuiltIn
+
+;=============== UART0 (physical COM1 connector P1) (Serial) ===============
+[HKEY_LOCAL_MACHINE\Drivers\BuiltIn\Serial]
+   "DeviceArrayIndex"=dword:0
+   "Irq"=dword:1c
+   "MemBase"=dword:50000000
+   "MemLen"=dword:2C
+   "InterruptBitsShift"=dword:0 ; UART 0 Interrupt Sub Register shift bit.
+   "ISTTimeouts"=dword:200	; every 512 ticks checking Modem status.
+   "Prefix"="COM"
+   "Dll"="serial_smdk2410.dll"
+   "Order"=dword:0
+   "Priority"=dword:0
+   "Port"="COM1:"
+   "DeviceType"=dword:0
+   "FriendlyName"="Serial Cable on COM1:"
+   "Tsp"="unimodem.dll"
+   "IClass"="{CC5195AC-BA49-48a0-BE17-DF6D1B0173DD}"
+   "DevConfig"=hex: 10,00, 00,00, 05,00,00,00, 10,01,00,00, 00,4B,00,00, 00,00, 08, 00, 00, 00,00,00,00

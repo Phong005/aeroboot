@@ -1,0 +1,35 @@
+!if 0
+Copyright (c) Microsoft Corporation.  All rights reserved.
+!endif
+!if 0
+Use of this source code is subject to the terms of the Microsoft end-user
+license agreement (EULA) under which you licensed this SOFTWARE PRODUCT.
+If you did not accept the terms of the EULA, you are not authorized to use
+this source code. For a copy of the EULA, please see the LICENSE.RTF on your
+install media.
+!endif
+
+WINCEOEM=1
+
+TARGETNAME=pcc_smdk2410
+TARGETTYPE=DYNLINK
+RELEASETYPE=PLATFORM
+TARGETLIBS=$(_COMMONSDKROOT)\lib\$(_CPUINDPATH)\coredll.lib \
+           $(_SYSGENOAKROOT)\lib\$(_CPUINDPATH)\ceddk.lib
+
+SOURCELIBS=$(_SYSGENOAKROOT)\lib\$(_CPUINDPATH)\pcc_com.lib
+
+DEFFILE=pcc_smdk2410.def
+DLLENTRY=DllEntry
+
+INCLUDES=$(_PUBLICROOT)\common\oak\drivers\pccard\common;$(INCLUDES)
+
+SOURCES= \
+    Init.cpp \
+    PDSocket.cpp \
+    PcmSock.cpp  \
+    PcmWin.cpp
+
+
+#xref VIGUID {549CAC8D_8AF0_4789_9ACF_2BB92599470D}
+#xref VSGUID {0601CE65_BF4D_453A_966B_E20250AD2E8E}

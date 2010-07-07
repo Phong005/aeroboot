@@ -1,0 +1,43 @@
+!if 0
+Copyright (c) Microsoft Corporation.  All rights reserved.
+!endif
+!if 0
+Use of this source code is subject to the terms of the Microsoft end-user
+license agreement (EULA) under which you licensed this SOFTWARE PRODUCT.
+If you did not accept the terms of the EULA, you are not authorized to use
+this source code. For a copy of the EULA, please see the LICENSE.RTF on your
+install media.
+!endif
+TARGETNAME=kernkitl
+TARGETTYPE=PROGRAM
+RELEASETYPE=PLATFORM
+SYNCHRONIZE_DRAIN=1
+
+EXEENTRY=StartUp
+
+LDEFINES=-subsystem:native /DEBUG /DEBUGTYPE:CV /FIXED:NO
+
+SOURCES=
+
+TARGETLIBS= \
+    $(_COMMONOAKROOT)\lib\$(_CPUDEPPATH)\nk.lib \
+    $(_TARGETPLATROOT)\lib\$(_CPUDEPPATH)\oal.lib \
+    $(_PLATCOMMONLIB)\$(_CPUINDPATH)\oal_startup_s3c2410x.lib \
+    $(_PLATCOMMONLIB)\$(_CPUINDPATH)\oal_abort_s3c2410x.lib \
+    $(_PLATCOMMONLIB)\$(_CPUINDPATH)\oal_cache_s3c2410x.lib \
+    $(_PLATCOMMONLIB)\$(_CPUINDPATH)\oal_memory_s3c2410x.lib \
+    $(_PLATCOMMONLIB)\$(_CPUDEPPATH)\oal_io_s3c2410x.lib \
+    $(_PLATCOMMONLIB)\$(_CPUINDPATH)\oal_timer_s3c2410x.lib \
+    $(_PLATCOMMONLIB)\$(_CPUDEPPATH)\oal_intr.lib \
+    $(_PLATCOMMONLIB)\$(_CPUINDPATH)\oal_power_stub.lib \
+    $(_PLATCOMMONLIB)\$(_CPUINDPATH)\oal_ioctl_s3c2410x.lib \
+    $(_PLATCOMMONLIB)\$(_CPUINDPATH)\oal_io.lib \
+    $(_PLATCOMMONLIB)\$(_CPUDEPPATH)\oal_other.lib \
+    $(_PLATCOMMONLIB)\$(_CPUDEPPATH)\oal_log.lib \
+    $(_PLATCOMMONLIB)\$(_CPUDEPPATH)\oal_kitl.lib \
+    $(_TARGETPLATROOT)\lib\$(_CPUDEPPATH)\oal_ethdrv_cs8900a.lib \
+    $(_COMMONOAKROOT)\lib\$(_CPUINDPATH)\ddk_io.lib  \
+    $(_COMMONOAKROOT)\lib\$(_CPUDEPPATH)\vbridge.lib \
+    $(_COMMONOAKROOT)\lib\$(_CPUDEPPATH)\kitl.lib \
+    $(_TARGETPLATROOT)\lib\$(_CPUDEPPATH)\smflash_lib.lib \
+    $(_COMMONOAKROOT)\lib\$(_CPUINDPATH)\fulllibc.lib

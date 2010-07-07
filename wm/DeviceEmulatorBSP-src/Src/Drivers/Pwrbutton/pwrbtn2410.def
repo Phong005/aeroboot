@@ -1,0 +1,51 @@
+;
+; Copyright (c) Microsoft Corporation.  All rights reserved.
+;
+;
+; Use of this source code is subject to the terms of the Microsoft end-user
+; license agreement (EULA) under which you licensed this SOFTWARE PRODUCT.
+; If you did not accept the terms of the EULA, you are not authorized to use
+; this source code. For a copy of the EULA, please see the LICENSE.RTF on your
+; install media.
+;
+;******************************************************************************
+;*
+;* System On Chip(SOC)
+;*
+;* Copyright (c) 2002 Software Center, Samsung Electronics, Inc.
+;* All rights reserved.
+;*
+;* This software is the confidential and proprietary information of Samsung
+;* Electronics, Inc("Confidential Information"). You Shall not disclose such
+;* Confidential Information and shall use it only in accordance with the terms
+;* of the license agreement you entered into Samsung.
+;*
+;*-----------------------------------------------------------------------------
+;*
+;*  S3C2410 BSP (Windows CE.NET)
+;*
+;* pbut2410.h : Power Button Driver
+;*
+;* @author      zartoven@samsung.com (SOC, SWC, SAMSUNG Electronics)
+;*
+;* @date        2002/04/25
+;*
+;* Log:
+;*  2002/04/25  Start
+;*
+;******************************************************************************
+
+
+LIBRARY PWRBUT2410
+
+EXPORTS DSK_Init
+	DSK_Deinit
+	DSK_Open
+	DSK_Close
+	DSK_Read
+	DSK_Write
+	DSK_Seek
+	DSK_IOControl
+	DSK_PowerDown
+	DSK_PowerUp
+

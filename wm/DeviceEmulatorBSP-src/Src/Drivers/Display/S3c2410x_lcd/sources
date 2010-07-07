@@ -1,0 +1,74 @@
+!if 0
+Copyright (c) Microsoft Corporation.  All rights reserved.
+!endif
+!if 0
+Use of this source code is subject to the terms of the Microsoft end-user
+license agreement (EULA) under which you licensed this SOFTWARE PRODUCT.
+If you did not accept the terms of the EULA, you are not authorized to use
+this source code. For a copy of the EULA, please see the LICENSE.RTF on your
+install media.
+!endif
+!IF 0
+
+Copyright (c) 1989  Microsoft Corporation
+
+Module Name:
+
+    sources.
+
+Abstract:
+
+    This file specifies the target component being built and the list of
+    sources files needed to build that component.  Also specifies optional
+    compiler switches and libraries that are unique for the component being
+    built.
+
+!ENDIF
+
+WINCEOEM=1
+
+TARGETNAME=DeviceEmulator_lcd
+TARGETTYPE=DYNLINK
+RELEASETYPE=PLATFORM
+
+TARGETDEFNAME=s3c2410x_lcd
+DEFFILE=s3c2410x_lcd.def
+#WINCETARGETFILE0=$(_COMMONOAKROOT)\lib\$(_CPUINDPATH)\$(TARGETDEFNAME).def
+
+
+!IFDEF CLEARTYPE
+CDEFINES=$(CDEFINES) -DDDI -DCLEARTYPE
+!ELSE
+CDEFINES=$(CDEFINES) -DDDI
+!ENDIF
+
+INCLUDES=$(INCLUDES);..\..\..\..\..\..\PUBLIC\COMMON\OAK\CSP\ARM\SAMSUNG\S3C2410X\inc
+
+PRECOMPILED_INCLUDE=precomp.h
+PRECOMPILED_PCH=precomp.pch
+PRECOMPILED_CXX=1
+
+
+TARGETLIBS=                                             \
+    $(_COMMONSDKROOT)\lib\$(_CPUINDPATH)\coredll.lib    \
+    $(_SYSGENOAKROOT)\lib\$(_CPUINDPATH)\ceddk.lib      \
+!IFDEF ROTATE
+    $(_COMMONOAKROOT)\lib\$(_CPUINDPATH)\emulrotate.lib \
+    $(_COMMONOAKROOT)\lib\$(_CPUINDPATH)\gperotate.lib
+!ELSE
+    $(_COMMONOAKROOT)\lib\$(_CPUINDPATH)\emul.lib       \
+    $(_COMMONOAKROOT)\lib\$(_CPUINDPATH)\gpe.lib
+!ENDIF
+
+SOURCELIBS= \
+!IFDEF CLEARTYPE
+!IFDEF ROTATE
+    $(_COMMONOAKROOT)\lib\$(_CPUINDPATH)\rctblt.lib
+!ELSE
+    $(_COMMONOAKROOT)\lib\$(_CPUINDPATH)\ctblt.lib
+!ENDIF
+!ENDIF
+
+
+SOURCES=s3c2410x_lcd.cpp
+

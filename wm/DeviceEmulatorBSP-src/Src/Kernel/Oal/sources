@@ -1,0 +1,23 @@
+TARGETNAME=oal
+TARGETTYPE=LIBRARY
+RELEASETYPE=PLATFORM
+NOMIPS16CODE=1
+
+CDEFINES=$(CDEFINES) -DCEDDK_USEDDKMACRO -DOAL_BSP_CALLBACKS
+
+SOURCES=\
+    idle.c \
+    init.c \
+    intr.c \
+    ioctl.c \
+    args.c \
+    kitl.c \
+    oalfiq.c \
+    oalintr.c \
+    rtc.c \
+    alarm.c \
+    debug.c
+
+ARM_SOURCES=\
+    startup.s \
+    cpupoweroff.s

@@ -1,0 +1,51 @@
+;
+; Copyright (c) Microsoft Corporation.  All rights reserved.
+;
+;
+; Use of this source code is subject to the terms of the Microsoft end-user
+; license agreement (EULA) under which you licensed this SOFTWARE PRODUCT.
+; If you did not accept the terms of the EULA, you are not authorized to use
+; this source code. For a copy of the EULA, please see the LICENSE.RTF on your
+; install media.
+;
+LIBRARY 	VCEFSD
+
+EXPORTS
+    FSD_MountDisk=VCEFSD_MountDisk
+    FSD_UnmountDisk=VCEFSD_UnmountDisk
+    FSD_CreateDirectoryW=VCEFSD_CreateDirectoryW
+    FSD_RemoveDirectoryW=VCEFSD_RemoveDirectoryW
+    FSD_GetFileAttributesW=VCEFSD_GetFileAttributesW
+    FSD_SetFileAttributesW=VCEFSD_SetFileAttributesW
+    FSD_DeleteFileW=VCEFSD_DeleteFileW
+    FSD_MoveFileW=VCEFSD_MoveFileW
+    FSD_DeleteAndRenameFileW=VCEFSD_DeleteAndRenameFileW
+    FSD_GetDiskFreeSpaceW=VCEFSD_GetDiskFreeSpaceW
+    FSD_Notify=VCEFSD_Notify
+    FSD_FindFirstFileW=VCEFSD_FindFirstFileW
+    FSD_FindNextFileW=VCEFSD_FindNextFileW
+    FSD_FindClose=VCEFSD_FindClose
+    FSD_CreateFileW=VCEFSD_CreateFileW
+    FSD_ReadFile=VCEFSD_ReadFile
+    FSD_ReadFileWithSeek=VCEFSD_ReadFileWithSeek
+    FSD_WriteFile=VCEFSD_WriteFile
+    FSD_WriteFileWithSeek=VCEFSD_WriteFileWithSeek
+    FSD_SetFilePointer=VCEFSD_SetFilePointer
+    FSD_GetFileSize=VCEFSD_GetFileSize
+    FSD_GetFileInformationByHandle=VCEFSD_GetFileInformationByHandle
+    FSD_FlushFileBuffers=VCEFSD_FlushFileBuffers
+    FSD_GetFileTime=VCEFSD_GetFileTime
+    FSD_SetFileTime=VCEFSD_SetFileTime
+    FSD_SetEndOfFile=VCEFSD_SetEndOfFile
+    FSD_CloseFile=VCEFSD_CloseFile
+    FSD_RegisterFileSystemFunction=VCEFSD_RegisterFileSystemFunction
+	DSK_Init
+	DSK_Deinit=DSK_DeinitClose
+	DSK_Open=DSK_Dud
+	DSK_Close=DSK_DeinitClose
+	DSK_Read=DSK_Dud
+	DSK_Write=DSK_Dud
+	DSK_Seek=DSK_Dud
+	DSK_IOControl
+	DSK_PowerDown=DSK_Power
+	DSK_PowerUp=DSK_Power

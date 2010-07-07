@@ -1,0 +1,81 @@
+;
+; Copyright (c) Microsoft Corporation.  All rights reserved.
+;
+;
+; Use of this source code is subject to the terms of the Microsoft end-user
+; license agreement (EULA) under which you licensed this SOFTWARE PRODUCT.
+; If you did not accept the terms of the EULA, you are not authorized to use
+; this source code. For a copy of the EULA, please see the LICENSE.RTF on your
+; install media.
+;
+
+; This file is to be included in platform.reg if required.
+;
+; $(PCI_BUS_ROOT) is a variable that needs to be set in the including 
+; platform.reg. It's value will be something like 
+; HKEY_LOCAL_MACHINE\Drivers\BuiltIn\PCI
+
+; Make sure the driver gets loaded. The PCMCIA driver opens its own key
+; in HKLM\Drivers\PCMCIA to extract useful info so this key only needs to
+; provide enough info to get the dll loaded at the right time. The GUID
+; the IClass value is immutable and matches the one in cardserv.h.
+
+[HKEY_LOCAL_MACHINE\Drivers\BuiltIn\PCC_SMDK2410]
+   "Dll"="pcc_smdk2410.dll"
+   "Order"=dword:1
+   
+   "ControllerFnInt"=dword:3       ; The PD6710 on SMDK2410 uses IRQ3 for client interrupts. The SMDK2410 board 
+                                   ; routes PD6710 IRQ3 to EINT8.
+   
+   "FnIrq"=dword:24                ; Function interrupt is routed as EINT8 (IRQ 0x24)
+   
+   ; "FnSysIntr"=dword:            ; if your system has statically mapped the EINT8 interrupt
+                                   ; to a SYSINTR value, comment out the "FnIrq" entry and provide
+                                   ; the SYSINTR value in a "FnSysIntr" entry
+                                   
+   "ForceFnSysIntr"=dword:1        ; Optionally controls how the client interrupt info is passed to client drivers
+                                   ; 1 - pass a SYSINTR value to client drivers even if the client interrupt 
+                                   ;     IRQ value is known
+                                   ; 0 - if the client interrupt IRQ value is known, pass the IRQ value to client
+                                   ;     drivers.  Otherwise pass the SysIntr value.
+                                   
+   "CSCIrq"=dword:3                ; The PD6710 on SMDK2410 uses -INTR for card status change interrupts.  
+                                   ; The SMDK2410 board routes the PD6710 -INTR to EINT3
+                                   
+   ; "CSCSysIntr"=dword:           ; if your system has statically mapped the EINT3 interrupt to a SYSINTR
+                                   ; value, comment out the "CSCIrq" entry and provide the SYSINTR value in
+                                   ; a "CSCSysIntr" entry
+   
+   ; "PollingMode"=dword:1         ; if you do not want to use interrupts for card status change detection,
+                                   ; set the "PollingMode" to 1
+                                   
+   "PollTimeout"=dword:ea60 ;1f4       ; Optionally you can control how frequently the driver should check for
+                                   ; card status changes.  PollTimeout specifies the time interval 
+                                   ; (in milliseconds) in polling mode.
+   
+   "PCCARDDLL"="pcc_serv.dll"
+   "IClass"=multi_sz:"{57430CF2-A260-4c9b-8F5C-FEF89217FE7C}=%b","{D0C3B9F2-D506-4c93-884D-6D71C47AC9AA}=%b"
+
+[HKEY_LOCAL_MACHINE\Drivers\BuiltIn\PCC_SMDK2410\WindowEntry1]
+    "RepeatCount"=dword:2                   ; 2 instances of the memory window
+    "WindowInfoWindowCaps"=dword:3          ; WIN_CAP_COMMON | WIN_CAP_ATTRIBUTE
+    "WindowInfoMemoryCaps"=dword:1b         ; MEM_CAP_8BIT | MEM_CAP_16BIT | MEM_CAP_PRG_BASE | MEM_CAP_PRG_SIZE
+    "WindowInfoMemMinSize"=dword:1000       ; require 4k alignment
+    "WindowInfoMemMaxSize"=dword:800000
+    "WindowInfoMemBase"=dword:10000000      ; base address of the first memory window, 
+                                            ; the base addresses of other winodws will be calculated
+    "WindowInfoSlowest"=dword:97            ; WIN_SPEED_EXP_10MS | WIN_SPEED_MANT_12 | WIN_SPEED_USE_WAIT
+    "WindowInfoFastest"=dword:90            ; WIN_SPEED_EXP_1NS | WIN_SPEED_MANT_12 | WIN_SPEED_USE_WAIT
+    "WindowStateSpeed"=dword:88             ; WIN_SPEED_EXP_1NS | WIN_SPEED_MANT_10 | WIN_SPEED_USE_WAIT
+
+[HKEY_LOCAL_MACHINE\Drivers\BuiltIn\PCC_SMDK2410\WindowEntry2]
+    "RepeatCount"=dword:2                   ; 2 instances of the IO window
+    "WindowInfoWindowCaps"=dword:4          ; WIN_CAP_IO
+    "WindowInfoIOCaps"=dword:18             ; IO_CAP_8BIT | IO_CAP_16BIT
+    "WindowInfoIOMinSize"=dword:4           ; require 4 byte alignment
+    "WindowInfoIOMaxSize"=dword:10000
+    "WindowInfoIOFirstByte"=dword:11000000
+    "WindowInfoIOLastByte"=dword:1100ffff
+    "WindowInfoIOGranularity"=dword:1
+    "WindowStateState"=dword:1              ; WIN_STATE_MAPS_IO
+    "WindowStateSpeed"=dword:88             ; WIN_SPEED_EXP_1NS | WIN_SPEED_MANT_10 | WIN_SPEED_USE_WAIT

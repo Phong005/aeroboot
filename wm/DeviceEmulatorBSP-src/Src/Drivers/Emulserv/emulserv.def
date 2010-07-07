@@ -1,0 +1,34 @@
+;
+; Copyright (c) Microsoft Corporation.  All rights reserved.
+;
+;
+; Use of this source code is subject to the terms of the Microsoft end-user
+; license agreement (EULA) under which you licensed this SOFTWARE PRODUCT.
+; If you did not accept the terms of the EULA, you are not authorized to use
+; this source code. For a copy of the EULA, please see the LICENSE.RTF on your
+; install media.
+;
+LIBRARY         EMS
+
+EXPORTS
+	DllMain
+	EMS_Init
+    EMS_Deinit
+    EMS_Open
+    EMS_Close
+    EMS_Read
+    EMS_Write
+    EMS_Seek
+    EMS_IOControl
+    EMS_PowerUp
+    EMS_PowerDown
+    DSK_Init
+	DSK_Deinit=DSK_DeinitClose
+	DSK_Open
+	DSK_Close=DSK_DeinitClose
+	DSK_Read=DSK_Dud
+	DSK_Write=DSK_Dud
+	DSK_Seek=DSK_Dud
+	DSK_IOControl
+	DSK_PowerDown=DSK_Power
+	DSK_PowerUp=DSK_Power
