@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "demo", "demo.vcproj", "{AD682597-0E39-4F9E-8B0F-416BCFE0C19A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|.NET = Debug|.NET
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|Win32 = Debug|Win32
+		Release|.NET = Release|.NET
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AD682597-0E39-4F9E-8B0F-416BCFE0C19A}.Debug|.NET.ActiveCfg = Debug|Win32
+		{AD682597-0E39-4F9E-8B0F-416BCFE0C19A}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{AD682597-0E39-4F9E-8B0F-416BCFE0C19A}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{AD682597-0E39-4F9E-8B0F-416BCFE0C19A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AD682597-0E39-4F9E-8B0F-416BCFE0C19A}.Debug|Win32.Build.0 = Debug|Win32
+		{AD682597-0E39-4F9E-8B0F-416BCFE0C19A}.Release|.NET.ActiveCfg = Release|Win32
+		{AD682597-0E39-4F9E-8B0F-416BCFE0C19A}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{AD682597-0E39-4F9E-8B0F-416BCFE0C19A}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{AD682597-0E39-4F9E-8B0F-416BCFE0C19A}.Release|Win32.ActiveCfg = Release|Win32
+		{AD682597-0E39-4F9E-8B0F-416BCFE0C19A}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
